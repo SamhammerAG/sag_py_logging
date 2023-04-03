@@ -7,7 +7,7 @@ with open("requirements.txt", "r") as fin:
     REQS = fin.read().splitlines()
 
 setuptools.setup(
-    name="sag-py-fastapi-request-id",
+    name="sag-py-logging",
     version="0.1.0",
     description="Initialize logging from a configuration json",
     long_description=LONG_DESCRIPTION,
