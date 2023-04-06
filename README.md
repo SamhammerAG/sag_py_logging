@@ -35,6 +35,8 @@ placeholder_container = { "host": "myhost.com", ...}
 init_logging("./log_config.json", config.logging_config)
 ```
 
+Init logging returns the log configuration as dictionary if needed for further processing.
+
 ### The json configuration
 
 ```json
