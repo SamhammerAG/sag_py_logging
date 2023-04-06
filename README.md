@@ -21,7 +21,7 @@ Furthermore it provides a way to log extra fields.
 
 ### Installation
 
-pip install sag_py_logging
+pip install sag-py-logging
 
 ### Initialize logging from json
 
