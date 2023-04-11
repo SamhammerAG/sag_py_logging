@@ -23,26 +23,46 @@ Furthermore it provides a way to log extra fields.
 
 pip install sag-py-logging
 
+pip install sag-py-logging[jinia] (optional for templating)
+
+pip install sag-py-logging[toml] (optional for toml file support)
+
 ### Initialize logging from json
 
 Add the following as early as possible to your application code:
 
 ```python
 from sag_py_logging.log_config_initializer import init_logging
+from sag_py_logging.log_config_loader import JsonLoader, TomlLoader
+from sag_py_logging.log_config_processors import FormatProcessor, JinjaProcessor
 
 placeholder_container = { "host": "myhost.com", ...}
 
-init_logging("./log_config.json", config.logging_config)
+# For toml config with jinja templating
+init_logging(
+    "./log_config.toml",
+    loader=TomlLoader(),
+    processors=[JinjaProcessor(placeholder_container.__dict__)]
+)
+
+# For json config with format templating
+init_logging(
+    "./log_config.json",
+    loader=JsonLoader(),
+    processors=[FormatProcessor(placeholder_container.__dict__)]
+)
+
 ```
 
 Init logging returns the log configuration as dictionary if needed for further processing.
 
-### The json configuration
+### The configuration
 
+Json config:
 ```json
 {
     "version": 1,
-    "disable_existing_loggers": "true",
+    "disable_existing_loggers": false,
     "root": {
         "handlers": ["myhandler"],
         "level": "INFO"
@@ -55,9 +75,29 @@ Init logging returns the log configuration as dictionary if needed for further p
     }
 }
 ```
+
+Toml config:
+```toml
+version = 1
+disable_existing_loggers = false
+
+[root]
+handlers = ["myhandler"]
+level = "INFO"
+
+[handlers.myhandler]
+host = "${host}"
+formatter = "handler_formatter"
+
+```
 This is a very basic sample on the format of the file including placeholders.
 
 Read the following for a full schema reference: https://docs.python.org/3/library/logging.config.html#configuration-dictionary-schema
+
+Read more on string templating here: https://docs.python.org/3/library/string.html#template-strings
+
+Or if you use jinja templating there: https://jinja.palletsprojects.com/en/3.1.x/templates/#template-designer-documentation
+
 
 ### Configure extra field logging
 

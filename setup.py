@@ -29,7 +29,7 @@ setuptools.setup(
     package_data={"sag_py_logging": ["py.typed"]},
     python_requires=">=3.8",
     install_requires=REQS,
-    extras_require={"dev": ["pytest"]},
+    extras_require={"dev": ["pytest"], "jinja": ["Jinja2>=3.1.2"], "toml": ["tomli>=2.0.1"]},
     project_urls={
         "Documentation": "https://github.com/SamhammerAG/sag_py_logging",
         "Bug Reports": "https://github.com/SamhammerAG/sag_py_logging/issues",

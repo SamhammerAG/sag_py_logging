@@ -1,49 +1,56 @@
-from typing import Any, Dict, Mapping
+from typing import Any, Dict
 
-import pytest
+from pytest import MonkeyPatch
 
-from sag_py_logging.log_config_initializer import _template_to_parsed_json
-
-
-@pytest.fixture()
-def test_template() -> str:
-    return """{
-        "version": 1,
-        "disable_existing_loggers": "true",
-        "root": {
-            "handlers": ["myhandler"],
-            "level": "INFO"
-        },
-        "handlers": {
-            "myhandler": {
-                "host": "${host}",
-                "port": ${port},
-                "formatter": "handler_formatter"
-            }
-        }
-    }"""
+from sag_py_logging.log_config_initializer import init_logging
+from sag_py_logging.log_config_loader import LogLoader
+from sag_py_logging.log_config_processors import LogProcessor
 
 
-def test__template_to_parsed_jsons__with_placeholders(test_template: str) -> None:
+class TestLogProcessorOne(LogProcessor):
+    def __call__(self, log_template: str) -> str:
+        return f"{log_template}-LogProcessorOne"
+
+
+class TestLogProcessorTwo(LogProcessor):
+    def __call__(self, log_template: str) -> str:
+        return f"{log_template}-LogProcessorTwo"
+
+
+class TestLogLoader(LogLoader):
+    def __call__(self, string_config: str) -> Dict[str, Any]:
+        return {"result": string_config}
+
+
+def _get_config_file_content_mock(config_file: str, encoding: str) -> str:
+    return "myFileContent"
+
+
+def _init_python_logging_mock(log_config_dict: Dict[str, Any]) -> None:
+    pass
+
+
+def test__init_logging(monkeypatch: MonkeyPatch) -> None:
     # Arrange
-    template_container: Mapping[str, object] = {"host": "myHost", "port": 1}
+    monkeypatch.setattr("sag_py_logging.log_config_initializer._get_config_file_content", _get_config_file_content_mock)
+    monkeypatch.setattr("sag_py_logging.log_config_initializer._init_python_logging", _init_python_logging_mock)
 
     # Act
-    actual: Dict[str, Any] = _template_to_parsed_json(test_template, template_container)
+    actual: Dict[str, Any] = init_logging(
+        "myconfig.json", TestLogLoader(), processors=[TestLogProcessorOne(), TestLogProcessorTwo()]
+    )
 
     # Assert
-    assert actual["version"] == 1
-    assert actual["handlers"]["myhandler"]["host"] == "myHost"
-    assert actual["handlers"]["myhandler"]["port"] == 1
+    assert actual["result"] == "myFileContent-LogProcessorOne-LogProcessorTwo"
 
 
-def test__template_to_parsed_jsons__with_missing_placeholders(test_template: str) -> None:
-    with pytest.raises(KeyError) as exception:
-        # Arrange
-        template_container: Mapping[str, object] = {"port": 1}
+def test__init_logging__without_processors(monkeypatch: MonkeyPatch) -> None:
+    # Arrange
+    monkeypatch.setattr("sag_py_logging.log_config_initializer._get_config_file_content", _get_config_file_content_mock)
+    monkeypatch.setattr("sag_py_logging.log_config_initializer._init_python_logging", _init_python_logging_mock)
 
-        # Act
-        _template_to_parsed_json(test_template, template_container)
+    # Act
+    actual: Dict[str, Any] = init_logging("myconfig.json", TestLogLoader())
 
     # Assert
-    assert str(exception) == "<ExceptionInfo KeyError('host') tblen=4>"
+    assert actual["result"] == "myFileContent"

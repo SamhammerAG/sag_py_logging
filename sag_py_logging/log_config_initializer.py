@@ -1,23 +1,35 @@
-import json
 import logging
 import logging.config
-from string import Template
-from typing import Any, Dict, Mapping
+from typing import Any, Dict, List, Optional
+
+from sag_py_logging.log_config_loader import LogLoader
+from sag_py_logging.log_config_processors import LogProcessor
 
 
 def init_logging(
-    config_file: str, placeholder_container: Mapping[str, object], encoding: str = "UTF-8"
+    config_file: str,
+    loader: LogLoader,
+    encoding: str = "UTF-8",
+    processors: Optional[List[LogProcessor]] = None,
 ) -> Dict[str, Any]:
+    config_template: str = _get_config_file_content(config_file, encoding)
+    parsed_template: str = _parse_template(processors, config_template)
+    log_config: Dict[str, Any] = loader(parsed_template)
+    _init_python_logging(log_config)
+    return log_config
+
+
+def _get_config_file_content(config_file: str, encoding: str) -> str:
     with open(config_file, "r", encoding=encoding) as log_config_reader:
-        log_template: str = log_config_reader.read()
-        log_config_dict: Dict[str, Any] = _template_to_parsed_json(log_template, placeholder_container)
-        _init_python_logging(log_config_dict)
-        return log_config_dict
+        return log_config_reader.read()
 
 
-def _template_to_parsed_json(log_template: str, placeholder_container: Mapping[str, object]) -> Dict[str, Any]:
-    parsed_log_templage: str = Template(log_template).substitute(placeholder_container)
-    return json.loads(parsed_log_templage)
+def _parse_template(processors: Optional[List[LogProcessor]], config_template: str) -> str:
+    parsed_template: str = config_template
+    if processors:
+        for processor in processors:
+            parsed_template = processor(parsed_template)
+    return parsed_template
 
 
 def _init_python_logging(log_config_dict: Dict[str, Any]) -> None:
