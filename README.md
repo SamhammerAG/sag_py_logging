@@ -42,14 +42,14 @@ placeholder_container = { "host": "myhost.com", ...}
 init_logging(
     "./log_config.toml",
     loader=TomlLoader(),
-    processors=[JinjaProcessor(placeholder_container.__dict__)]
+    processors=[JinjaProcessor(placeholder_container)]
 )
 
 # For json config with format templating
 init_logging(
     "./log_config.json",
     loader=JsonLoader(),
-    processors=[FormatProcessor(placeholder_container.__dict__)]
+    processors=[FormatProcessor(placeholder_container)]
 )
 
 ```
