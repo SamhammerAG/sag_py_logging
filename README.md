@@ -115,17 +115,18 @@ If you init logging by config file the filter is added like that:
 ```json
 {
     "formatters": {
-        "my_formatter": {
+        "myformatter": {
             "format": "s%(asctime)s - %(name)s - %(message)s - %(stringified_extra)s",
         },
     },
-    "handlers": {
-        "myhandler": {
-            "filters": ["console_extra_field_filter"]
-        }
-    },
     "filters": {
         "console_extra_field_filter": {"()": "sag_py_logging.console_extra_field_filter.ConsoleExtraFieldFilter"}
+    },
+    "handlers": {
+        "myhandler": {
+            "formatter": "myformatter",
+            "filters": ["console_extra_field_filter"]
+        }
     }
 }
 ```
