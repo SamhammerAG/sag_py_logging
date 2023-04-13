@@ -114,6 +114,11 @@ console_handler.addFilter(ConsoleExtraFieldFilter())
 If you init logging by config file the filter is added like that:
 ```json
 {
+    "formatters": {
+        "my_formatter": {
+            "format": "s%(asctime)s - %(name)s - %(message)s - %(stringified_extra)s",
+        },
+    },
     "handlers": {
         "myhandler": {
             "filters": ["console_extra_field_filter"]
