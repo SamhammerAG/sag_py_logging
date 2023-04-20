@@ -3,7 +3,8 @@ from typing import cast
 
 import pytest
 
-from sag_py_logging import ConsoleExtraFieldFilter, ExtraFieldsLogRecord
+from sag_py_logging.console_extra_field_filter import ConsoleExtraFieldFilter
+from sag_py_logging.models import ExtraFieldsLogRecord
 
 
 @pytest.fixture()

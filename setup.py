@@ -6,9 +6,15 @@ with open("README.md", "r") as fh:
 with open("requirements.txt", "r") as fin:
     REQS = fin.read().splitlines()
 
+with open("requirements-dev.txt", "r") as fin:
+    REQS_DEV = [item for item in fin.read().splitlines() if not item.endswith(".txt")]
+
+JINJA_EXTRA = [item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require jinia" in item]
+TOMLI_EXTRA = [item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require tomli" in item]
+
 setuptools.setup(
     name="sag-py-logging",
-    version="0.3.0",
+    version="0.3.1",
     description="Initialize logging from a configuration json",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
@@ -29,7 +35,7 @@ setuptools.setup(
     package_data={"sag_py_logging": ["py.typed"]},
     python_requires=">=3.8",
     install_requires=REQS,
-    extras_require={"dev": ["pytest"], "jinja": ["Jinja2>=3.1.2"], "toml": ["tomli>=2.0.1"]},
+    extras_require={"dev": REQS_DEV, "jinja": JINJA_EXTRA, "toml": TOMLI_EXTRA},
     project_urls={
         "Documentation": "https://github.com/SamhammerAG/sag_py_logging",
         "Bug Reports": "https://github.com/SamhammerAG/sag_py_logging/issues",

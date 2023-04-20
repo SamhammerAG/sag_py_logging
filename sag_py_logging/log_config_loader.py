@@ -22,13 +22,12 @@ class TomlLoader(LogLoader):
     def __init__(self) -> None:
         try:
             import tomli
+
+            self.tomli = tomli
         except ImportError as e:
             raise ModuleNotFoundError(
                 "Module 'tomli' not installed.  Please run " "'python -m pip install sag-py-logging[toml]'"
             ) from e
-        import tomli
-
-        self.tomli = tomli
 
     def __call__(self, string_config: str) -> Dict[str, Any]:
         return self.tomli.loads(string_config)

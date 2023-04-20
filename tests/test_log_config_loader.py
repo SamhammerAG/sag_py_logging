@@ -43,7 +43,7 @@ def test__json_loader(test_json: str) -> None:
 
     # Assert
     assert actual["version"] == 1
-    assert actual["disable_existing_loggers"] == True
+    assert actual["disable_existing_loggers"] is True
     assert actual["root"]["handlers"][0] == "myhandler"
     assert actual["root"]["level"] == "INFO"
     assert actual["handlers"]["myhandler"]["formatter"] == "handler_formatter"
@@ -58,7 +58,7 @@ def test__toml_loader(test_toml: str) -> None:
 
     # Assert
     assert actual["version"] == 1
-    assert actual["disable_existing_loggers"] == True
+    assert actual["disable_existing_loggers"] is True
     assert actual["root"]["handlers"][0] == "myhandler"
     assert actual["root"]["level"] == "INFO"
     assert actual["handlers"]["myhandler"]["formatter"] == "handler_formatter"

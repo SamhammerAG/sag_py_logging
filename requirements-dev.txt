@@ -1,4 +1,8 @@
 -r requirements.txt
+flake8
+mypy
+build
+
 pytest
 pytest-asyncio
 pytest-cov
@@ -7,5 +11,6 @@ mock
 types-mock
 
 # Install extra requirements for unit tests to work
-Jinja2>=3.1.2
-tomli>=2.0.1
+# Note: the 'extras_require' comments are parsed by setup.py
+Jinja2>=3.1.2 # extras_require jinia
+tomli>=2.0.1 # extras_require tomli
