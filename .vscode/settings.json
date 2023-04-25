@@ -40,5 +40,7 @@
     "errorLens.enabledDiagnosticLevels": [
         "error",
         "warning"
-    ]
+    ],
+    "todo-tree.general.showActivityBarBadge": true,
+    "todo-tree.general.statusBar": "current file"
 }
