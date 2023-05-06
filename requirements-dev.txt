@@ -9,7 +9,7 @@ pytest-cov
 coverage-lcov
 mock
 types-mock
-
+attrs
 # Install extra requirements for unit tests to work
 # Note: the 'extras_require' comments are parsed by setup.py
 Jinja2>=3.1.2 # extras_require jinia
