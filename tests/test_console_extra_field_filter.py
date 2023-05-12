@@ -46,3 +46,28 @@ def test_with_extra_fields(log_record: LogRecord) -> None:
         'my_extra_not_serializable_object={"testtext": "test"}, '
         "my_extra_object_without_dict=ClassWithoutDict(x=123, y=456)"
     )
+
+
+def test_with_extra_fields_when_called_twice(log_record: LogRecord) -> None:
+    # Arrange
+    filter_ = ConsoleExtraFieldFilter()
+    log_record.my_extra_string = "test"
+    log_record.my_extra_int = 1
+    log_record.my_extra_bool = True
+    log_record.my_extra_dict_object = {"keyOne": "valueOne", "keyTwo": 2}
+    log_record.my_extra_not_serializable_object = NotSerializableClass("test")
+    log_record.my_extra_object_without_dict = ClassWithoutDict(x=123, y=456)
+
+    # Act
+    filter_.filter(log_record)
+    filter_.filter(log_record)
+
+    # Assert
+    assert (
+        cast(ExtraFieldsLogRecord, log_record).stringified_extra == 'my_extra_string="test", '
+        "my_extra_int=1, "
+        "my_extra_bool=true, "
+        'my_extra_dict_object={"keyOne": "valueOne", "keyTwo": 2}, '
+        'my_extra_not_serializable_object={"testtext": "test"}, '
+        "my_extra_object_without_dict=ClassWithoutDict(x=123, y=456)"
+    )

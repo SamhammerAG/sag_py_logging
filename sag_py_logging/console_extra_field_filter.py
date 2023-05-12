@@ -37,6 +37,7 @@ class ConsoleExtraFieldFilter(logging.Filter):
             "tags",
             "@metadata",
             "color_message",
+            "stringified_extra",
         }
 
     def filter(self, record: logging.LogRecord) -> bool:
