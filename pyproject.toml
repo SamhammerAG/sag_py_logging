@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sag-py-logging"
-version = "0.3.3"
+version = "0.3.4"
 description = "Initialize logging from a configuration json"
 authors = ["Samhammer AG"]
 license = "MIT"
