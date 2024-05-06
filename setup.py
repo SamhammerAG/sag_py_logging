@@ -14,7 +14,7 @@ TOMLI_EXTRA = [item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require 
 
 setuptools.setup(
     name="sag-py-logging",
-    version="0.3.3",
+    version="0.3.4",
     description="Initialize logging from a configuration json",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",

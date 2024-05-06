@@ -40,3 +40,4 @@ dist/
 venv
 sag_py_logging.egg-info
 /lcov.info
+poetry.lock
