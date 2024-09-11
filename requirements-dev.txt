@@ -11,7 +11,7 @@ pytest-cov
 # see for details: https://github.com/theupdateframework/python-tuf/issues/2254
 coverage-lcov
 toml
-coverage==6.5.0
+coverage
 
 mock
 types-mock
