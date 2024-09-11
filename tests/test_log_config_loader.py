@@ -3,8 +3,8 @@ import pytest
 from sag_py_logging.log_config_loader import JsonLoader, TomlLoader
 
 
-@pytest.fixture()
-def test_json() -> str:
+@pytest.fixture(name="test_json")
+def fixture_test_json() -> str:
     return """{
         "version": 1,
         "disable_existing_loggers": true,
@@ -20,8 +20,8 @@ def test_json() -> str:
     }"""
 
 
-@pytest.fixture()
-def test_toml() -> str:
+@pytest.fixture(name="test_toml")
+def fixture_test_toml() -> str:
     return """version = 1
         disable_existing_loggers = true
 

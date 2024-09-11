@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from pytest import MonkeyPatch
 
@@ -18,7 +18,7 @@ class TestLogProcessorTwo(LogProcessor):
 
 
 class TestLogLoader(LogLoader):
-    def __call__(self, string_config: str) -> Dict[str, Any]:
+    def __call__(self, string_config: str) -> dict[str, Any]:
         return {"result": string_config}
 
 
@@ -26,7 +26,7 @@ def _get_config_file_content_mock(config_file: str, encoding: str) -> str:
     return "myFileContent"
 
 
-def _init_python_logging_mock(log_config_dict: Dict[str, Any]) -> None:
+def _init_python_logging_mock(log_config_dict: dict[str, Any]) -> None:
     pass
 
 
@@ -36,7 +36,7 @@ def test__init_logging(monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr("sag_py_logging.log_config_initializer._init_python_logging", _init_python_logging_mock)
 
     # Act
-    actual: Dict[str, Any] = init_logging(
+    actual: dict[str, Any] = init_logging(
         "myconfig.json", TestLogLoader(), processors=[TestLogProcessorOne(), TestLogProcessorTwo()]
     )
 
@@ -50,7 +50,7 @@ def test__init_logging__without_processors(monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr("sag_py_logging.log_config_initializer._init_python_logging", _init_python_logging_mock)
 
     # Act
-    actual: Dict[str, Any] = init_logging("myconfig.json", TestLogLoader())
+    actual: dict[str, Any] = init_logging("myconfig.json", TestLogLoader())
 
     # Assert
     assert actual["result"] == "myFileContent"

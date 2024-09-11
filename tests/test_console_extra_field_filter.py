@@ -8,8 +8,8 @@ from sag_py_logging.models import ExtraFieldsLogRecord
 from tests.test_data.extra_data_test_classes import ClassWithoutDict, NotSerializableClass
 
 
-@pytest.fixture()
-def log_record() -> LogRecord:
+@pytest.fixture(name="log_record")
+def fixture_log_record() -> LogRecord:
     return LogRecord(name="", level=INFO, pathname="", lineno=0, msg="Hello, world!", args=(), exc_info=None)
 
 
