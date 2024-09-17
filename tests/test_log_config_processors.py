@@ -5,8 +5,8 @@ import pytest
 from sag_py_logging.log_config_processors import FormatProcessor, JinjaProcessor
 
 
-@pytest.fixture()
-def format_template() -> str:
+@pytest.fixture(name="format_template")
+def fixture_format_template() -> str:
     return """{
         "version": 1,
         "disable_existing_loggers": "true",
@@ -24,8 +24,8 @@ def format_template() -> str:
     }"""
 
 
-@pytest.fixture()
-def jinja_template() -> str:
+@pytest.fixture(name="jinja_template")
+def fixture_jinja_template() -> str:
     return """{
         "version": 1,
         "disable_existing_loggers": "true",

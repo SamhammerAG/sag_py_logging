@@ -11,7 +11,7 @@ pytest-cov
 # see for details: https://github.com/theupdateframework/python-tuf/issues/2254
 coverage-lcov
 toml
-coverage==6.5.0
+coverage
 
 mock
 types-mock
@@ -21,3 +21,5 @@ attrs
 # Note: the 'extras_require' comments are parsed by setup.py
 Jinja2>=3.1.2 # extras_require jinia
 tomli>=2.0.1 # extras_require tomli
+
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability

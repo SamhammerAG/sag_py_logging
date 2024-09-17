@@ -14,7 +14,7 @@ TOMLI_EXTRA = [item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require 
 
 setuptools.setup(
     name="sag-py-logging",
-    version="0.3.4",
+    version="0.4.0",
     description="Initialize logging from a configuration json",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
@@ -33,7 +33,7 @@ setuptools.setup(
     keywords="logging, extra, fields",
     packages=setuptools.find_packages(exclude=["tests"]),
     package_data={"sag_py_logging": ["py.typed"]},
-    python_requires=">=3.8",
+    python_requires=">=3.12",
     install_requires=REQS,
     extras_require={"dev": REQS_DEV, "jinja": JINJA_EXTRA, "toml": TOMLI_EXTRA},
     project_urls={
