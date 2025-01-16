@@ -1,7 +1,7 @@
 -r requirements.txt
+build
 flake8
 mypy
-build
 
 pytest
 pytest-asyncio
@@ -9,13 +9,13 @@ pytest-cov
 
 # Toml and coverage temporarely fixes compatibility issues between coverage-lcov and coverage
 # see for details: https://github.com/theupdateframework/python-tuf/issues/2254
+coverage
 coverage-lcov
 toml
-coverage
 
+attrs
 mock
 types-mock
-attrs
 
 # Install extra requirements for unit tests to work
 # Note: the 'extras_require' comments are parsed by setup.py
