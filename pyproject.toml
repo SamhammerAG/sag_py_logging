@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sag-py-logging"
-version = "0.4.1"
+version = "0.4.2"
 description = "Initialize logging from a configuration json"
 authors = ["Samhammer AG"]
 license = "MIT"
@@ -10,21 +10,21 @@ readme = "README.md"
 python = "^3.12"
 
 [tool.poetry.group.dev.dependencies]
-attrs = ">=24.2.0"
+attrs = ">=25.3.0"
 build = "*"
 coverage = "*"
 coverage-lcov = "*"
 flake8 = "*"
-Jinja2 = ">=3.1.2"
+Jinja2 = ">=3.1.6"
 mock = "*"
-mypyp = "*"
+mypy = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 toml = "*"
-tomli = ">=2.0.1"
+tomli = ">=2.2.1"
 types-mock = "*"
-zipp = ">=3.19.1"
+zipp = ">=3.21.0"
 
 [build-system]
 requires = ["setuptools>=61.0"]
