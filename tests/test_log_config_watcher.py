@@ -41,7 +41,8 @@ def test_empty_override_level_is_ignored(tmp_path: Path) -> None:
     write_toml(base, add_logger("access", "ERROR"))
     write_toml(override, add_logger("access", ""))
 
-    # The base file is never read (since we don't call init_logging). We have to manually set the access logger level first.
+    # The base file is never read (since we don't call init_logging).
+    # We have to manually set the access logger level first.
     logging.getLogger("access").setLevel("ERROR")
 
     log_config_watcher.build_and_apply_merged_config(base, override)
@@ -56,7 +57,8 @@ def test_invalid_override_level_is_ignored(tmp_path: Path) -> None:
     write_toml(base, add_logger("access", "ERROR"))
     write_toml(override, add_logger("access", "NOTALEVEL"))
 
-    # The base file is never read (since we don't call init_logging). We have to manually set the access logger level first.
+    # The base file is never read (since we don't call init_logging).
+    # We have to manually set the access logger level first.
     logging.getLogger("access").setLevel("ERROR")
 
     log_config_watcher.build_and_apply_merged_config(base, override)
