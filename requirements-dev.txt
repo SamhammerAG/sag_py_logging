@@ -7,15 +7,15 @@ pytest
 pytest-asyncio
 pytest-cov
 
-# Toml and coverage temporarely fixes compatibility issues between coverage-lcov and coverage
+# coverage temporarily fixes compatibility issues between coverage-lcov and coverage
 # see for details: https://github.com/theupdateframework/python-tuf/issues/2254
 coverage
 coverage-lcov
-toml
 
 attrs
 mock
 types-mock
+types-toml
 
 # Install extra requirements for unit tests to work
 # Note: the 'extras_require' comments are parsed by setup.py
