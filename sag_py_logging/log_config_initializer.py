@@ -4,15 +4,22 @@ from typing import Any
 
 from sag_py_logging.log_config_loader import LogLoader
 from sag_py_logging.log_config_processors import LogProcessor
+from sag_py_logging.log_config_watcher import start_logging_watcher
 
 
 def init_logging(
-    config_file: str, loader: LogLoader, encoding: str = "UTF-8", processors: list[LogProcessor] | None = None
+    config_file: str,
+    loader: LogLoader,
+    encoding: str = "UTF-8",
+    processors: list[LogProcessor] | None = None,
+    override_config_file: str | None = None,
 ) -> dict[str, Any]:
     config_template: str = _get_config_file_content(config_file, encoding)
     parsed_template: str = _parse_template(processors, config_template)
     log_config: dict[str, Any] = loader(parsed_template)
     _init_python_logging(log_config)
+    if override_config_file:
+        start_logging_watcher(config_file, override_config_file)
     return log_config
 
 

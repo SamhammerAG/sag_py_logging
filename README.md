@@ -56,6 +56,38 @@ init_logging(
 
 Init logging returns the log configuration as dictionary if needed for further processing.
 
+#### Overriding loggers during runtime
+
+If you need, you can provide an additional 'override_config_file'.
+
+```python
+init_logging(
+    "./log_config.toml",
+    loader=TomlLoader(),
+    processors=[JinjaProcessor(placeholder_container)],
+    override_config_file="path/to/override.toml"
+)
+```
+
+If you do so, a watcher will be started that checks in an interval whether the override_config_file got any updates. If it did, it will override all of the provided loggers from the base config file.
+
+For example:
+
+```
+#base config file
+[loggers."access"]
+level = "INFO"
+
+[loggers."kubernetes.client.rest"]
+level = "ERROR"
+
+#override_config_file
+[loggers."access"]
+level = "ERROR"
+```
+
+The watcher will set the access logger to ERROR and keep the kubernetes one at ERROR. Upon removing the access one from the override file, the access logger will be reset to INFO.
+
 ### The configuration
 
 Json config:
