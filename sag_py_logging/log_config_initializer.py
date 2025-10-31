@@ -18,7 +18,7 @@ def init_logging(
     parsed_template: str = _parse_template(processors, config_template)
     log_config: dict[str, Any] = loader(parsed_template)
     _init_python_logging(log_config)
-    if override_config_file:
+    if override_config_file:  # pragma: no cover
         start_logging_watcher(config_file, override_config_file)
     return log_config
 

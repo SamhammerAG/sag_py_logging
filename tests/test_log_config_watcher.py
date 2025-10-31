@@ -66,6 +66,20 @@ def test_invalid_override_level_is_ignored(tmp_path: Path) -> None:
     assert logging.getLogger("access").level == logging.ERROR
 
 
+def test_incorrect_path_causes_no_changes(tmp_path: Path) -> None:
+    base = tmp_path / "base.toml"
+    override = Path("this/does/not/exist.toml")
+    write_toml(base, add_logger("access", "ERROR"))
+
+    # The base file is never read (since we don't call init_logging).
+    # We have to manually set the access logger level first.
+    logging.getLogger("access").setLevel("ERROR")
+
+    log_config_watcher.build_and_apply_merged_config(base, override)
+
+    assert logging.getLogger("access").level == logging.ERROR
+
+
 def test_reset_override_reverts_to_base(tmp_path: Path) -> None:
     base = tmp_path / "base.toml"
     override = tmp_path / "override.toml"
