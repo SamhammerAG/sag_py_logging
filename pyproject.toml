@@ -24,6 +24,7 @@ ruff = "*"
 toml = "*"
 tomli = ">=2.2.1"
 types-mock = "*"
+types-toml = "*"
 zipp = ">=3.21.0"
 
 [build-system]
