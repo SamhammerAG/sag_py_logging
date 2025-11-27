@@ -25,7 +25,8 @@ class JinjaProcessor(LogProcessor):
             import jinja2
         except ImportError as e:
             raise ModuleNotFoundError(
-                "Module 'jinja2' not installed.  Please run " "'python -m pip install sag-py-logging[jinja]'"
+                "Module 'jinja2' not installed.  Please run "
+                "'python -m pip install sag-py-logging[jinja]'"
             ) from e
 
         self.jinja = jinja2

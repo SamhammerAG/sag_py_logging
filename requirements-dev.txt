@@ -1,25 +1,19 @@
 -r requirements.txt
+attrs
 build
-flake8
-mypy
-
-pytest
-pytest-asyncio
-pytest-cov
-
 # coverage temporarily fixes compatibility issues between coverage-lcov and coverage
 # see for details: https://github.com/theupdateframework/python-tuf/issues/2254
 coverage
 coverage-lcov
-
-attrs
+Jinja2>=3.1.6 # extras_require jinia
 mock
+mypy
+pytest
+pytest-asyncio
+pytest-cov
+ruff
+toml
+tomli>=2.2.1 # extras_require tomli
 types-mock
 types-toml
-
-# Install extra requirements for unit tests to work
-# Note: the 'extras_require' comments are parsed by setup.py
-Jinja2>=3.1.6 # extras_require jinia
-tomli>=2.2.1 # extras_require tomli
-
 zipp>=3.21.0 # not directly required, pinned by Snyk to avoid a vulnerability

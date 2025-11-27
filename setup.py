@@ -9,12 +9,16 @@ with open("requirements.txt", "r") as fin:
 with open("requirements-dev.txt", "r") as fin:
     REQS_DEV = [item for item in fin.read().splitlines() if not item.endswith(".txt")]
 
-JINJA_EXTRA = [item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require jinia" in item]
-TOMLI_EXTRA = [item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require tomli" in item]
+JINJA_EXTRA = [
+    item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require jinia" in item
+]
+TOMLI_EXTRA = [
+    item.split(" #", 1)[0] for item in REQS_DEV if "# extras_require tomli" in item
+]
 
 setuptools.setup(
     name="sag-py-logging",
-    version="0.5.0",
+    version="0.6.0",
     description="Initialize logging from a configuration json",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",

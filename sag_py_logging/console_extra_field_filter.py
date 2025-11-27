@@ -48,10 +48,17 @@ class ConsoleExtraFieldFilter(logging.Filter):
         return True
 
     def _get_extra_fields(self, record: logging.LogRecord) -> dict[str, Any]:
-        return {key: value for key, value in record.__dict__.items() if key not in self.excluded_standard_fields}
+        return {
+            key: value
+            for key, value in record.__dict__.items()
+            if key not in self.excluded_standard_fields
+        }
 
     def _to_key_value_strings(self, extra_fields: dict[str, Any]) -> list[str]:
-        return [f"{key}={self._generate_string_value(value)}" for key, value in extra_fields.items()]
+        return [
+            f"{key}={self._generate_string_value(value)}"
+            for key, value in extra_fields.items()
+        ]
 
     def _generate_string_value(self, value: Any) -> str:
         with contextlib.suppress(Exception):
