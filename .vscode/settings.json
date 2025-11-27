@@ -6,7 +6,6 @@
     "files.trimTrailingWhitespace": true,
     "files.exclude": {
         ".coverage": true,
-        ".flake8": true,
         ".gitattributes": true,
         ".gitignore": true,
         ".idea": true,

@@ -47,10 +47,15 @@ def build_and_apply_merged_config(base_path: Path, override_path: Path) -> None:
     try:
         apply_level_overrides_from_toml(merged)
     except Exception as exc:  # pylint: disable=broad-except
-        logger.warning("Skipping reload of logging config; invalid config or dictConfig failed: %s", exc)
+        logger.warning(
+            "Skipping reload of logging config; invalid config or dictConfig failed: %s",
+            exc,
+        )
 
 
-def watch_override_file(base_path: Path, override_path: Path, poll_interval: int = 10) -> None:  # pragma: no cover
+def watch_override_file(
+    base_path: Path, override_path: Path, poll_interval: int = 10
+) -> None:  # pragma: no cover
     last_mtime = None
     while True:
         try:
@@ -68,7 +73,13 @@ def watch_override_file(base_path: Path, override_path: Path, poll_interval: int
         time.sleep(poll_interval)
 
 
-def start_logging_watcher(base_config_file: str, override_config_file: str) -> None:  # pragma: no cover
+def start_logging_watcher(
+    base_config_file: str, override_config_file: str
+) -> None:  # pragma: no cover
     print("starting logging.toml watcher")
-    t = Thread(target=watch_override_file, args=(Path(base_config_file), Path(override_config_file)), daemon=True)
+    t = Thread(
+        target=watch_override_file,
+        args=(Path(base_config_file), Path(override_config_file)),
+        daemon=True,
+    )
     t.start()
