@@ -18,7 +18,7 @@ TOMLI_EXTRA = [
 
 setuptools.setup(
     name="sag-py-logging",
-    version="0.5.0",
+    version="0.6.0",
     description="Initialize logging from a configuration json",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
